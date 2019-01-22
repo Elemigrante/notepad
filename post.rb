@@ -20,19 +20,17 @@ class Post
   end
 
   def save
-    file = File.new(file_path)
+    file = File.new(file_path, 'w:UTF-8')
 
-    for item in to_strings do
-      file.puts(item)
-    end
+    to_strings.each {|string| file.puts(string)}
     file.close
   end
 
   def file_path
     current_path = File.dirname(__FILE__ )
 
-    file_name = @created_at.strftime("#{self.class.name}_%Y-%m-%d_%H-%M-%S.txt")
+    file_name = @created_at.strftime("%Y-%m-%d_%H-%M-%S.txt")
 
-    "#{current_path + '/' +file_name}"
+    "#{current_path}/#{self.class.name}_#{file_name}.txt"
   end
 end
