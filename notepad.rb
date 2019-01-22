@@ -21,4 +21,4 @@ entry = Post.create(choice)
 entry.read_from_console
 entry.save
 
-puts 'Ура, запись охранена!'
+puts 'Ура, запись сохранена!'
