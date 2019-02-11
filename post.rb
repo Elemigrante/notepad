@@ -12,6 +12,33 @@ class Post
     post_types[type].new
   end
 
+  def self.find(limit, type, id)
+    db = SQLite3::Database.open(@@SQLITE_DB_FILE)
+
+    #  1. конкретная запись
+    if !id.nil?
+      db.results_as_hash = true
+
+      result = db.execute("SELECT * FROM posts WHERE rowid = ?", id)
+      result = result[0] if result.is_a? Array
+
+      db.close
+
+      if result.empty?
+        puts "Такой id #{id} не найден в базе :("
+        nil
+      else
+        post = create(result['type'])
+
+        post.load_data(result)
+
+        post
+      end
+    else
+    #  2. вернуть таблицу записей
+    end
+  end
+
   def initialize
     @created_at = Time.now
     @text = nil
@@ -64,5 +91,10 @@ class Post
       'type' => self.class.name,
       'create_at' => @created_at.to_s
     }
+  end
+
+  # получает на вход хэш массив данных и должен заполнить свои поля
+  def load_data(data_hash)
+    @created_at = Time.parse(data_hash['create_at'])
   end
 end

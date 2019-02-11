@@ -5,7 +5,7 @@ class Memo < Post
     @text = []
     line = nil
 
-    while  line != 'end' do
+    while line != 'end' do
       line = STDIN.gets.chomp
       @text << line
     end
@@ -25,5 +25,11 @@ class Memo < Post
         'text' => @text.join('\n\r')
       }
     )
+  end
+
+  def load_data(data_hash)
+    super(data_hash)
+
+    @text = data_hash['text'].split('\n\r')
   end
 end
