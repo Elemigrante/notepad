@@ -31,16 +31,27 @@ if result.is_a? Post
     puts line
   end
 else # покажем таблицу результатов
-
-  print "| id\t| @type\t|  @created_at\t\t\t|  @text \t\t\t| @url\t\t| @due_date \t "
+  print '| id                 '
+  print '| @type              '
+  print '| @created_at        '
+  print '| @text              '
+  print '| @url               '
+  print '| @due_date          '
+  print '|'
 
   result.each do |row|
     puts
 
     row.each do |element|
-      print"| #{element.to_s.delete("\\n\\r")[0..40]}\t"
+      element_text = "| #{element.to_s.delete("\n")[0..17]}"
+
+      # Если текст элемента короткий, добавляем нужное количество пробелов
+      element_text << ' ' * (21 - element_text.size)
+
+      print element_text
     end
+    print '|'
   end
+  puts
 end
 
-puts
