@@ -1,10 +1,10 @@
 class Memo < Post
   def read_from_console
-    puts "Новая заметка (все, что пишите до строчки \"end\"):"
+    puts "Новая заметка (все, что пишите до строчки 'end'):"
 
-    line = nil
+    line = []
 
-    while line == 'end'
+    until line == 'end'
       line = STDIN.gets.chomp
       @text << line
     end

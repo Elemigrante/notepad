@@ -4,14 +4,14 @@ require_relative 'memo'
 require_relative 'task'
 
 
-puts 'Привет, я твой блокнот! Версия 1.5 + SQLite'
+puts 'Привет, я твой блокнот!'
+puts 'Версия 2, записываю новые записи в базу SQLite'
 puts
 puts 'Что хотите записать в блокнот?'
 
 choices = Post.post_types.keys
 
 choice = -1
-
 until choice >= 0 && choice < choices.size
   choices.each_with_index do |type, index|
     puts "\t#{index}. #{type}"
